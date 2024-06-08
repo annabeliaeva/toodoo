@@ -1,0 +1,27 @@
+
+@use '../../../globals'
+
+.task-item
+	display: flex
+	justify-content: space-between
+	align-items: center
+
+	&__text
+		font-weight: 300
+		font-size: 14px
+		color: globals.$dark2
+
+	&__inactive
+		text-decoration: line-through
+		color: globals.$grey2
+
+	&__button
+		transition: all .3s ease-in-out
+		width: 15px
+		height: 14px
+		background: url('/button_done_active.svg')
+		background-position: center
+		background-repeat: no-repeat
+
+		&-undone
+			background: url('/button_done_inactive.svg')

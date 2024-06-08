@@ -1,0 +1,37 @@
+
+@use '../../globals'
+
+.day-card
+	display: flex
+	flex-direction: column
+	flex-grow: 1
+	padding: 15px
+	min-height: 96px
+	min-width: 188px
+	border-radius: 14px
+	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1)
+	background: globals.$white1
+
+	&__date-section
+		display: flex
+		justify-content: space-between
+		align-items: center
+
+	&__week-day
+		font-weight: 400
+		font-size: 18px
+		color: globals.$dark2
+
+	&__date
+		font-weight: 300
+		font-size: 14px
+		color: globals.$grey2
+
+	&__spacer
+		width: 100%
+		height: 1px
+		background: globals.$grey3
+
+	&__task-list
+		display: flex
+		flex-direction: column
