@@ -1,0 +1,53 @@
+
+@use '../../../globals'
+
+.task-item
+	display: flex
+	justify-content: space-between
+	align-items: center
+	border: 1px solid #ccc
+	border-radius: 14px
+	padding: 10px
+
+	&__text
+		font-weight: 300
+		font-size: 14px
+		color: globals.$dark2
+		white-space: initial
+		width: 100%
+		outline: 0
+		user-select: none
+
+	&__buttons
+		display: flex
+		gap: 10px
+		visibility: hidden
+
+		&-remove-button
+			cursor: pointer
+			background: url('/button_remove.svg')
+			width: 10px
+			height: 12px
+			background-repeat: no-repeat
+			opacity: 0.5
+			transition: opacity .1s ease-in
+
+			&:hover
+				opacity: 1
+
+		&-done-button
+			cursor: pointer
+			width: 15px
+			height: 14px
+			background: url('/button_done_active.svg')
+			background-position: center
+			background-repeat: no-repeat
+
+	&:hover > &__buttons
+		visibility: visible
+
+	&__inactive
+		background: globals.$white3
+
+	&__inactive > &__text
+		text-decoration: line-through

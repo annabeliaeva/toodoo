@@ -1,0 +1,65 @@
+
+@use '../../globals'
+
+.overlay
+    position: fixed
+    display: flex
+    align-items: center
+    inset: 0
+    background: rgba(0, 0, 0, 0.25)
+    overflow: hidden
+
+    &__content
+        display: flex
+        flex-direction: column
+        gap: 15px
+        background: globals.$white1
+        margin: 0 auto
+        border-radius: 14px
+        padding: 15px
+        width: 569px
+        height: 501px
+        transition: all .2s ease-out
+        transform: translateY(-100%)
+        opacity: 0
+
+        &-opened
+            transform: translateY(0)
+            opacity: 1
+
+    &__header
+        display: flex
+        justify-content: space-between
+
+        &__date
+            font-weight: 400
+            font-size: 28px
+            color: globals.$dark2
+
+    &__spacer
+        height: 1px
+        background: globals.$grey3
+
+    &__task-list
+        display: flex
+        flex-direction: column
+        gap: 10px
+
+    &__add-task
+        display: flex
+        justify-content: center
+        gap: 10px
+        border: 1px dashed #ccc
+        border-radius: 14px
+        padding: 10px
+
+        &-text
+            font-weight: 400
+            font-size: 16px
+            line-height: 100%
+            color: globals.$grey2
+
+        &-button
+            background: url('/button_add_task.svg')
+            width: 16px
+            height: 16px
