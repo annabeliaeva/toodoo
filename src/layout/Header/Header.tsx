@@ -1,8 +1,12 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import styles from './Header.module.sass'
 import { getFormattedWeek } from '../../utils'
+import { useGlobalContext } from '../../GlobalContent'
+import cn from 'classnames'
 
 function Header() {
+  const { isFetching } = useGlobalContext()
+
   const { week } = useParams()
   const navigate = useNavigate()
 
@@ -24,7 +28,11 @@ function Header() {
           {formattedDate.startDate.format('DD.MM.YY')} -{' '}
           {formattedDate.endDate.format('DD.MM.YY')}
         </p>
-        <div className={styles['header__buttons']}>
+        <div
+          className={cn(styles['header__buttons'], {
+            [styles['header__buttons-disabled']]: isFetching
+          })}
+        >
           <img
             src="/button_left.svg"
             alt="Кнопка листания влево"

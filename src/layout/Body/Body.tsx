@@ -3,17 +3,13 @@ import DayCard from '../../components/DayCard/DayCard'
 import styles from './Body.module.sass'
 import { createPortal } from 'react-dom'
 import ModalDay from '../../components/ModalDay/ModalDay'
-import {
-  getDateFromString,
-  getDaysFromWeek,
-  getFormattedWeek,
-  getTasksForDay
-} from '../../utils'
+import { getFormattedWeek, getTasksForDay } from '../../utils'
 import { useParams } from 'react-router-dom'
 import { Moment } from 'moment'
 import { useGlobalContext } from '../../GlobalContent'
 import useLocalStorage from '../../hooks/useLocalStorage'
 import { TaskItemType } from '../../interfaces'
+import DayCardSkeleton from '../../components/DayCardSkeleton/DayCardSkeleton'
 
 type WeekDay = {
   date: Moment
@@ -21,7 +17,7 @@ type WeekDay = {
 }
 
 function Body() {
-  const { tasks } = useGlobalContext()
+  const { tasks, isFetching, setIsFetching } = useGlobalContext()
 
   const [tasksData, setTasksData] = useLocalStorage<TaskItemType[]>(
     'tasks',
@@ -33,10 +29,11 @@ function Body() {
   const [days, setDays] = useState<WeekDay[]>([])
 
   const { week } = useParams()
-
-  const { ...formattedDate } = getFormattedWeek(week)
+  const formattedDate = getFormattedWeek(week)
 
   useEffect(() => {
+    if (isFetching) return
+    setIsFetching(true)
     fetch(
       'https://isdayoff.ru/api/getdata?' +
         new URLSearchParams({
@@ -52,7 +49,8 @@ function Body() {
         }))
       })
       .then(setDays)
-  }, [formattedDate.weekNumber])
+      .finally(() => setIsFetching(false))
+  }, [week])
 
   const handleClickDayCard = (date: Moment) => {
     setSelectedDate(date)
@@ -68,25 +66,33 @@ function Body() {
 
   return (
     <section className={styles['body']}>
-      {days.slice(0, 5).map((el) => (
-        <DayCard
-          date={el.date}
-          onClick={handleClickDayCard}
-          isDayOff={el.isDayOff}
-          tasks={getTasksForDay(tasksData, el.date)}
-          onClickTaskDone={onClickTaskDone}
-        />
-      ))}
+      {!isFetching
+        ? days
+            .slice(0, 5)
+            .map((el) => (
+              <DayCard
+                date={el.date}
+                onClick={handleClickDayCard}
+                isDayOff={el.isDayOff}
+                tasks={getTasksForDay(tasksData, el.date)}
+                onClickTaskDone={onClickTaskDone}
+              />
+            ))
+        : new Array(5).fill(1).map((_, i) => <DayCardSkeleton key={i} />)}
       <div className={styles['body__days-off']}>
-        {days.slice(5, 7).map((el) => (
-          <DayCard
-            date={el.date}
-            onClick={handleClickDayCard}
-            isDayOff={el.isDayOff}
-            tasks={getTasksForDay(tasksData, el.date)}
-            onClickTaskDone={onClickTaskDone}
-          />
-        ))}
+        {!isFetching
+          ? days
+              .slice(5, 7)
+              .map((el) => (
+                <DayCard
+                  date={el.date}
+                  onClick={handleClickDayCard}
+                  isDayOff={el.isDayOff}
+                  tasks={getTasksForDay(tasksData, el.date)}
+                  onClickTaskDone={onClickTaskDone}
+                />
+              ))
+          : new Array(2).fill(1).map((_, i) => <DayCardSkeleton key={i + 5} />)}
       </div>
       {showModal &&
         createPortal(
