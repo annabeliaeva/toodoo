@@ -10,6 +10,7 @@ import { useGlobalContext } from '../../GlobalContent'
 import useLocalStorage from '../../hooks/useLocalStorage'
 import { TaskItemType } from '../../interfaces'
 import DayCardSkeleton from '../../components/DayCardSkeleton/DayCardSkeleton'
+import { v4 as uuidv4 } from 'uuid'
 
 type WeekDay = {
   date: Moment
@@ -64,13 +65,48 @@ function Body() {
     setTasksData(updatedTasksData)
   }
 
+  const onClickTaskRemove = (id: string) => {
+    const updatedTasksData = tasksData.filter(
+      (task: TaskItemType) => task.id !== id
+    )
+    setTasksData(updatedTasksData)
+  }
+
+  const onClickTaskItemAdd = (date: string) => {
+    const updatedTasksData = [
+      ...tasksData,
+      {
+        id: uuidv4(),
+        date: date,
+        text: '',
+        isDone: false
+      }
+    ]
+    setTasksData(updatedTasksData)
+  }
+
+  const handleUpdateTask = (id: string, text: string) => {
+    let updatedTasksData = []
+    if (text === '') {
+      updatedTasksData = tasksData.filter(
+        (task: TaskItemType) => task.id !== id
+      )
+    } else {
+      updatedTasksData = tasksData.map((task: TaskItemType) =>
+        task.id === id ? { ...task, text: text } : task
+      )
+    }
+    setTasksData(updatedTasksData)
+  }
+
   return (
     <section className={styles['body']}>
       {!isFetching
         ? days
             .slice(0, 5)
-            .map((el) => (
+            .map((el, i) => (
               <DayCard
+                key={i}
                 date={el.date}
                 onClick={handleClickDayCard}
                 isDayOff={el.isDayOff}
@@ -83,8 +119,9 @@ function Body() {
         {!isFetching
           ? days
               .slice(5, 7)
-              .map((el) => (
+              .map((el, i) => (
                 <DayCard
+                  key={i}
                   date={el.date}
                   onClick={handleClickDayCard}
                   isDayOff={el.isDayOff}
@@ -96,7 +133,15 @@ function Body() {
       </div>
       {showModal &&
         createPortal(
-          <ModalDay date={selectedDate} onClose={() => setShowModal(false)} />,
+          <ModalDay
+            date={selectedDate}
+            tasks={getTasksForDay(tasksData, selectedDate)}
+            onTaskItemDone={onClickTaskDone}
+            onTaskItemRemove={onClickTaskRemove}
+            onTaskItemAdd={onClickTaskItemAdd}
+            updateTask={handleUpdateTask}
+            onClose={() => setShowModal(false)}
+          />,
           document.body
         )}
     </section>

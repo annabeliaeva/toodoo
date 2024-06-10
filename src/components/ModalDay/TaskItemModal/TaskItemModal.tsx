@@ -1,13 +1,35 @@
-import { TaskItemProps } from '../../DayCard/TaskItem/TaskItem'
 import styles from './TaskItemModal.module.sass'
 import cn from 'classnames'
+import AutosizeTextarea from '../../AutosizeTextarea/AutosizeTextarea'
 
-function TaskItemModal(props: TaskItemProps) {
-  const { taskText, isDone, onClickDone } = props
+interface TaskItemModalProps {
+  text: string
+  id: string
+  date: string
+  isDone: boolean
+  onClickDone: () => void
+  onClickRemove: () => void
+  updateTask: (id: string, text: string) => void
+}
+
+function TaskItemModal(props: TaskItemModalProps) {
+  const { text, id, date, isDone, onClickDone, onClickRemove, updateTask } =
+    props
 
   const clickButtonDone = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation()
     onClickDone()
+  }
+
+  const clickButtonRemove = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
+    e.stopPropagation()
+    onClickRemove()
+  }
+
+  const handleUpdateText = (text: string) => {
+    updateTask(id, text)
   }
 
   return (
@@ -16,11 +38,16 @@ function TaskItemModal(props: TaskItemProps) {
         [styles['task-item__inactive']]: isDone
       })}
     >
-      <p contentEditable className={styles['task-item__text']}>
-        {taskText}
-      </p>
+      <AutosizeTextarea
+        text={text}
+        className={styles['task-item__text']}
+        updateText={handleUpdateText}
+      />
       <div className={styles['task-item__buttons']}>
-        <div className={styles['task-item__buttons-remove-button']}></div>
+        <div
+          onClick={clickButtonRemove}
+          className={styles['task-item__buttons-remove-button']}
+        ></div>
         <div
           onClick={clickButtonDone}
           className={styles['task-item__buttons-done-button']}

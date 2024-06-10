@@ -48,7 +48,11 @@ export const getDaysFromWeek = (startDate: Moment, endDate: Moment) => {
   return [weekDays, weekEnds]
 }
 
-export const getTasksForDay = (tasksData: TaskItemType[], date: Moment) => {
+export const getTasksForDay = (
+  tasksData: TaskItemType[],
+  date: Moment | null
+) => {
+  if (!date) return []
   return tasksData.filter(
     (el: TaskItemType) => el.date === date.format('DD.MM.YYYY')
   )
