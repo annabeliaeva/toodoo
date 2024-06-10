@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 import styles from './Header.module.sass'
 import { getFormattedWeek } from '../../utils'
 import { useGlobalContext } from '../../GlobalContent'
@@ -22,7 +22,9 @@ function Header() {
 
   return (
     <header className={styles['header']}>
-      <p className={styles['header__logo']}>TooDoo</p>
+      <Link style={{ textDecoration: 'none' }} to="/">
+        <p className={styles['header__logo']}>TooDoo</p>
+      </Link>
       <div className={styles['header__week-and-buttons']}>
         <p className={styles['header__week']}>
           {formattedDate.startDate.format('DD.MM.YY')} -{' '}
