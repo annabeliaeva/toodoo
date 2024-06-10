@@ -22,7 +22,7 @@ function Header() {
 
   return (
     <header className={styles['header']}>
-      <Link style={{ textDecoration: 'none' }} to="/">
+      <Link className={styles['header__link']} to="/">
         <p className={styles['header__logo']}>TooDoo</p>
       </Link>
       <div className={styles['header__week-and-buttons']}>
