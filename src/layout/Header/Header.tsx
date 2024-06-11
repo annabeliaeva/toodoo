@@ -30,22 +30,23 @@ function Header() {
           {formattedDate.startDate.format('DD.MM.YY')} -{' '}
           {formattedDate.endDate.format('DD.MM.YY')}
         </p>
-        <div
-          className={cn(styles['header__buttons'], {
-            [styles['header__buttons-disabled']]: isFetching
+        <img
+          className={cn(styles['header__button-left'], {
+            [styles['header__disabled']]: isFetching
           })}
-        >
-          <img
-            src="/button_left.svg"
-            alt="Кнопка листания влево"
-            onClick={handlePreviousWeek}
-          />
-          <img
-            src="/button_right.svg"
-            alt="Кнопка листания вправо"
-            onClick={handleNextWeek}
-          />
-        </div>
+          src="/button_left.svg"
+          alt="Кнопка листания влево"
+          onClick={handlePreviousWeek}
+        />
+        <img
+          className={cn(styles['header__button-right'], {
+            [styles['header__disabled']]: isFetching
+          })}
+          src="/button_right.svg"
+          alt="Кнопка листания вправо"
+          onClick={handleNextWeek}
+        />
+        {/* </div> */}
       </div>
     </header>
   )

@@ -4,6 +4,7 @@
 .day-card
 	display: flex
 	flex-direction: column
+	flex-basis: 20%
 	flex-grow: 1
 	padding: 15px
 	min-height: 96px
@@ -12,6 +13,10 @@
 	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1)
 	background: globals.$white1
 	cursor: pointer
+
+	@media screen and (max-width: 1100px)
+		width: 90%
+		box-sizing: border-box
 
 	&__date-section
 		display: flex
@@ -29,7 +34,6 @@
 		color: globals.$grey2
 
 	&__spacer
-		width: 100%
 		height: 1px
 		background: globals.$grey3
 
