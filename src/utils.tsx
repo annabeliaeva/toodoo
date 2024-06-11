@@ -7,11 +7,13 @@ moment.locale('ru')
 export const getFormattedWeek = (week: string | undefined) => {
   const startOf1970 = moment('1970-01-01')
   const now = moment()
-  let weekNumber = now.diff(startOf1970, 'weeks')
+  let weekNumber = now.diff(startOf1970, 'weeks') + 1
 
   if (week) {
     weekNumber = parseInt(week, 10)
   }
+
+  console.log(weekNumber)
 
   const startDate = moment('1970-01-01')
     .add(weekNumber, 'weeks')
