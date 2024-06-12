@@ -7,6 +7,7 @@ import { MyGlobalContext } from './GlobalContent'
 import { v4 as uuidv4 } from 'uuid'
 
 function App() {
+  const [isAuthed, setIsAuthed] = useState(false)
   const [tasks, setTasks] = useState<TaskItemType[]>([
     {
       id: uuidv4(),
@@ -66,16 +67,18 @@ function App() {
 
   const [isFetching, setIsFetching] = useState(false)
 
-  console.log(isFetching)
-
   return (
     <MyGlobalContext.Provider
       value={{ tasks, setTasks, isFetching, setIsFetching }}
     >
-      <div className="app">
-        <Header />
-        <Body />
-      </div>
+      {!isAuthed ? (
+        <>Avutorizuisa</>
+      ) : (
+        <div className="app">
+          <Header />
+          <Body />
+        </div>
+      )}
     </MyGlobalContext.Provider>
   )
 }

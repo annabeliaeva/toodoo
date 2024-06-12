@@ -41,7 +41,6 @@ function ModalDay({
 
   return (
     <div className={styles['overlay']} onClick={initClosing}>
-      (
       <div
         className={cn(styles['overlay__content'], {
           [styles['overlay__content-opened']]: isShown
@@ -83,7 +82,6 @@ function ModalDay({
           <div className={styles['overlay__add-task-button']} />
         </div>
       </div>
-      )
     </div>
   )
 }

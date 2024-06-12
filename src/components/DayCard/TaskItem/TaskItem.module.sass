@@ -26,14 +26,15 @@
 			cursor: pointer
 			visibility: hidden
 			transition: background .3s ease-in-out
-			width: 15px
-			height: 14px
-			background: url('/button_done_active.svg')
+			min-width: 15px
+			min-height: 14px
+			background-image: url('/button_done_active.svg')
 			background-position: center
+			background-size: cover
 			background-repeat: no-repeat
 
 			&-undone
-				background: url('/button_done_inactive.svg')
+				background-image: url('/button_done_inactive.svg')
 
 		&:hover > &-button
 			visibility: visible
@@ -41,3 +42,11 @@
 	&__spacer
 		height: 1px
 		background: globals.$white2
+
+	@media screen and (max-width: 1100px)
+		&__wrapper
+			&-button
+				margin: 5px
+				visibility: visible
+				width: 1.3rem
+				height: 1.3rem

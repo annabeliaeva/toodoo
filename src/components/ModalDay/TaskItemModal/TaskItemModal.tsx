@@ -1,6 +1,7 @@
 import styles from './TaskItemModal.module.sass'
 import cn from 'classnames'
 import AutosizeTextarea from '../../AutosizeTextarea/AutosizeTextarea'
+import { useEffect } from 'react'
 
 interface TaskItemModalProps {
   text: string
@@ -30,6 +31,10 @@ function TaskItemModal(props: TaskItemModalProps) {
   const handleUpdateText = (text: string) => {
     updateTask(id, text)
   }
+
+  useEffect(() => {
+    if (props.text) handleUpdateText(props.text)
+  }, [])
 
   return (
     <div
