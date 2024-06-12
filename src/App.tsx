@@ -3,10 +3,8 @@ import './App.sass'
 import { TaskItemType } from './interfaces'
 import Body from './layout/Body/Body'
 import Header from './layout/Header/Header'
-import { MyGlobalContext, useGlobalContext } from './GlobalContent'
+import { MyGlobalContext } from './GlobalContent'
 import { v4 as uuidv4 } from 'uuid'
-import { createPortal } from 'react-dom'
-import ModalFetching from './components/ModalFetching/ModalFetching'
 
 function App() {
   const [tasks, setTasks] = useState<TaskItemType[]>([

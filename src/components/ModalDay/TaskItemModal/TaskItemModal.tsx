@@ -13,8 +13,7 @@ interface TaskItemModalProps {
 }
 
 function TaskItemModal(props: TaskItemModalProps) {
-  const { text, id, date, isDone, onClickDone, onClickRemove, updateTask } =
-    props
+  const { text, id, isDone, onClickDone, onClickRemove, updateTask } = props
 
   const clickButtonDone = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation()

@@ -46,7 +46,6 @@ function Header() {
           alt="Кнопка листания вправо"
           onClick={handleNextWeek}
         />
-        {/* </div> */}
       </div>
     </header>
   )

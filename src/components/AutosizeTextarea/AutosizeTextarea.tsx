@@ -1,7 +1,7 @@
 import cn from 'classnames'
 import styles from './AutosizeTextarea.module.sass'
 import { KeyboardEvent } from 'react'
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 interface AutosizeTextareaProps {
   className?: string
