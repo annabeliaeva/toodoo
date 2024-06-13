@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import styles from './ModalAuth.module.sass'
 import cn from 'classnames'
 interface ModalAuthProps {
@@ -9,8 +9,16 @@ function ModalAuth({ submitLogin }: ModalAuthProps) {
   const [isShown, setIsShown] = useState(false)
   const [login, setLogin] = useState('')
 
+  const inputRef = useRef<HTMLInputElement>(null)
+
   useEffect(() => {
     if (!isShown) setIsShown(true)
+  }, [])
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus()
+    }
   }, [])
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -42,6 +50,7 @@ function ModalAuth({ submitLogin }: ModalAuthProps) {
             </label>
             <input
               className={styles['overlay__input-and-label-input']}
+              ref={inputRef}
               type="text"
               placeholder="Ваш логин"
               value={login}
