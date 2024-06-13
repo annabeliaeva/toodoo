@@ -6,13 +6,17 @@ export interface GlobalContent {
   setTasks: (t: TaskItemType[]) => void
   isFetching: boolean
   setIsFetching: (fetch: boolean) => void
+  authedUser: string | null
+  setAuthedUser: (value: string) => void
 }
 
 export const MyGlobalContext = createContext<GlobalContent>({
   tasks: [],
   setTasks: () => {},
   isFetching: false,
-  setIsFetching: () => {}
+  setIsFetching: () => {},
+  authedUser: null,
+  setAuthedUser: () => {}
 })
 
 export const useGlobalContext = () => useContext(MyGlobalContext)

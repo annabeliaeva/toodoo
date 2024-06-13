@@ -1,0 +1,93 @@
+
+@use '../../globals'
+
+.overlay
+	position: fixed
+	display: flex
+	align-items: center
+	inset: 0
+	height: fit-content
+	overflow: hidden
+
+	&__content
+		display: flex
+		flex-direction: column
+		gap: 15px
+		background: globals.$white1
+		margin: 0 auto
+		border-radius: 14px
+		padding: 15px
+		width: 500px
+		transition: all .2s ease-out
+		transform: translateY(-100%)
+		opacity: 0
+
+		&-opened
+			transform: translateY(0)
+			opacity: 1
+
+	&__header
+		text-align: center
+		font-weight: 400
+		font-size: 28px
+
+	&__spacer
+		height: 1px
+		background: globals.$grey3
+
+	&__form
+		display: flex
+		flex-direction: column
+		align-items: center
+		gap: 15px
+
+	&__input-and-label
+		display: flex
+		width: 100%
+		justify-content: space-between
+		align-items: center
+
+		&-label
+			font-weight: 300
+			font-size: 20px
+			color: globals.$dark2
+
+		&-input
+			font-weight: 300
+			font-size: 20px
+			text-align: center
+			overflow: hidden
+			border-radius: 14px
+			border: 1px solid rgba(204, 204, 204, 0.8)
+			height: 40px
+			padding: 10px
+
+			&:focus
+				outline: none
+				border: 2px solid rgba(148, 145, 145, 0.8)
+
+	&__submit-button
+		font-weight: 300
+		font-size: 20px
+		text-align: center
+		color: globals.$dark2
+		border-radius: 5px
+		padding: 4px 3px
+		width: 140px
+		height: 37px
+		background: globals.$light_pink
+		border: none
+
+	@media screen and (max-width: 1100px)
+		padding: 2rem
+		height: fit-content
+		align-items: flex-start
+
+		&__content
+			width: 100%
+			max-height: 60%
+			height: auto
+
+		&__task-list
+			max-height: 20rem
+			overflow: scroll

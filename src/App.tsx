@@ -4,10 +4,12 @@ import { TaskItemType } from './interfaces'
 import Body from './layout/Body/Body'
 import Header from './layout/Header/Header'
 import { MyGlobalContext } from './GlobalContent'
+import { createPortal } from 'react-dom'
 import { v4 as uuidv4 } from 'uuid'
+import ModalAuth from './components/ModalAuth/ModalAuth'
 
 function App() {
-  const [isAuthed, setIsAuthed] = useState(false)
+  const [authedUser, setAuthedUser] = useState<string | null>(null)
   const [tasks, setTasks] = useState<TaskItemType[]>([
     {
       id: uuidv4(),
@@ -67,12 +69,26 @@ function App() {
 
   const [isFetching, setIsFetching] = useState(false)
 
+  const handleSubmitLogin = (login: string) => {
+    setAuthedUser(login)
+  }
+
   return (
     <MyGlobalContext.Provider
-      value={{ tasks, setTasks, isFetching, setIsFetching }}
+      value={{
+        tasks,
+        setTasks,
+        isFetching,
+        setIsFetching,
+        authedUser,
+        setAuthedUser
+      }}
     >
-      {!isAuthed ? (
-        <>Avutorizuisa</>
+      {!authedUser ? (
+        createPortal(
+          <ModalAuth submitLogin={handleSubmitLogin} />,
+          document.body
+        )
       ) : (
         <div className="app">
           <Header />

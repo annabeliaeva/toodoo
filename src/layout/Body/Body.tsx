@@ -18,10 +18,10 @@ type WeekDay = {
 }
 
 function Body() {
-  const { tasks, isFetching, setIsFetching } = useGlobalContext()
+  const { tasks, isFetching, setIsFetching, authedUser } = useGlobalContext()
 
   const [tasksData, setTasksData] = useLocalStorage<TaskItemType[]>(
-    'tasks',
+    authedUser!,
     tasks
   )
 

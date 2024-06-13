@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import styles from './ModalDay.module.sass' // Импорт стилей для модального окна
+import styles from './ModalDay.module.sass'
 import cn from 'classnames'
 import TaskItemModal from './TaskItemModal/TaskItemModal'
 import { Moment } from 'moment'
