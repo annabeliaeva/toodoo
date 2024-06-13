@@ -1,4 +1,12 @@
-import { createContext, useContext } from 'react'
+import { v4 as uuidv4 } from 'uuid'
+
+import {
+  ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useState
+} from 'react'
 import { TaskItemType } from './interfaces'
 
 export interface GlobalContent {
@@ -20,3 +28,39 @@ export const MyGlobalContext = createContext<GlobalContent>({
 })
 
 export const useGlobalContext = () => useContext(MyGlobalContext)
+
+interface GlobalProviderProps {
+  children: ReactNode
+}
+
+export const GlobalProvider = ({ children }: GlobalProviderProps) => {
+  const [authedUser, setAuthedUser] = useState<string | null>(() => {
+    return localStorage.getItem('authedUser')
+  })
+  const [tasks, setTasks] = useState<TaskItemType[]>([])
+
+  const [isFetching, setIsFetching] = useState(false)
+
+  useEffect(() => {
+    if (authedUser) {
+      localStorage.setItem('authedUser', authedUser)
+    } else {
+      localStorage.removeItem('authedUser')
+    }
+  }, [authedUser])
+
+  return (
+    <MyGlobalContext.Provider
+      value={{
+        tasks,
+        setTasks,
+        isFetching,
+        setIsFetching,
+        authedUser,
+        setAuthedUser
+      }}
+    >
+      {children}
+    </MyGlobalContext.Provider>
+  )
+}
