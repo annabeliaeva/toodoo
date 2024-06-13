@@ -3,6 +3,7 @@
 
 .user-menu
 	display: flex
+	// margin-right: 2rem
 	position: relative
 	align-items: center
 	cursor: pointer
@@ -10,23 +11,28 @@
 	font-size: 20px
 
 	&__name
-		margin-right: 10px
 		padding: 5px 10px
 		border-radius: 5px
 		cursor: pointer
 
 	&__menu
 		position: absolute
-		top: 50%
-		left: 50%
+		top: 1rem
+		left: -2px
 		transform: translate(-50%, -50%) translateY(4rem)
 		padding: 10px 15px
-		background: #fff
-		width: 200px
+		background: globals.$white2
+		width: 140px
 		min-height: fit-content
 		border-radius: 14px
 		transition: 0.3s
 		opacity: 1
+
+		@media screen and (max-width: 1100px)
+			position: absolute
+			top: 50%
+			left: 50%
+			transform: translate(-50%, -50%) translateY(4.5rem)
 
 	&__hidden
 		opacity: 0
@@ -39,6 +45,7 @@
 		transition: 0.3s
 
 	&__logout-button
+		cursor: pointer
 		font-weight: 300
 		font-size: 20px
 		text-align: center
