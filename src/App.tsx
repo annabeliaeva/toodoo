@@ -69,8 +69,8 @@ function App() {
 
   const [isFetching, setIsFetching] = useState(false)
 
-  const handleSubmitLogin = (login: string) => {
-    setAuthedUser(login)
+  const handleSubmitLogin = (username: string) => {
+    setAuthedUser(username)
   }
 
   return (

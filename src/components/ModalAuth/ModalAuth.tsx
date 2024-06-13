@@ -2,12 +2,12 @@ import { useEffect, useRef, useState } from 'react'
 import styles from './ModalAuth.module.sass'
 import cn from 'classnames'
 interface ModalAuthProps {
-  submitLogin: (login: string) => void
+  submitLogin: (username: string) => void
 }
 
 function ModalAuth({ submitLogin }: ModalAuthProps) {
   const [isShown, setIsShown] = useState(false)
-  const [login, setLogin] = useState('')
+  const [username, setUsername] = useState('')
 
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -27,7 +27,7 @@ function ModalAuth({ submitLogin }: ModalAuthProps) {
   }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setLogin(event.target.value)
+    setUsername(event.target.value)
   }
 
   return (
@@ -53,7 +53,7 @@ function ModalAuth({ submitLogin }: ModalAuthProps) {
               ref={inputRef}
               type="text"
               placeholder="Ваш логин"
-              value={login}
+              value={username}
               onChange={handleChange}
               id="login"
             />

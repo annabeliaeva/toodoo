@@ -3,9 +3,10 @@ import styles from './Header.module.sass'
 import { getFormattedWeek } from '../../utils'
 import { useGlobalContext } from '../../GlobalContent'
 import cn from 'classnames'
+import UserMenu from '../../components/UserMenu/UserMenu'
 
 function Header() {
-  const { isFetching } = useGlobalContext()
+  const { isFetching, authedUser, setAuthedUser } = useGlobalContext()
 
   const { week } = useParams()
   const navigate = useNavigate()
@@ -47,6 +48,12 @@ function Header() {
           onClick={handleNextWeek}
         />
       </div>
+      <UserMenu
+        username={authedUser!}
+        onLogout={() => {
+          setAuthedUser('')
+        }}
+      />
     </header>
   )
 }
