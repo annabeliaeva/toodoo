@@ -5,17 +5,16 @@ import 'moment/dist/locale/ru'
 moment.locale('ru')
 
 export const getFormattedWeek = (week: string | undefined) => {
-  const startOf1970 = moment('1970-01-01')
   const now = moment()
-  let weekNumber = now.diff(startOf1970, 'weeks')
+  const year = now.year()
+
+  let weekNumber = now.isoWeek()
 
   if (week) {
     weekNumber = parseInt(week, 10)
   }
 
-  const startDate = moment('1970-01-01')
-    .add(weekNumber, 'weeks')
-    .startOf('isoWeek')
+  const startDate = moment().year(year).isoWeek(weekNumber).startOf('isoWeek')
   const endDate = startDate.clone().endOf('isoWeek')
 
   return {
